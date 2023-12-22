@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f5f5f5;
+    }
+
+    header {
+      background-color: pink;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      width: 100%;
+      font-size: 1.5em;
+      display: flex;
+      justify-content: space-between; 
+      align-items: center;
+    }
+
+    header img {
+      width: 100px;
+      height: 100px;
+    }
+
+    header h1 {
+      margin-left: 20px;
+    }
+
+    .content {
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #89CFF0;
+      color: #fff;
+    }
+
+    .status-indicator {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .green { background-color: #4CAF50; }
+    .yellow { background-color: #FFD700; }
+    .red { background-color: #FF4500; }
+
+    form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label, textarea, input, select {
+      margin: 8px 0;
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      font-size: 0.8em;
+      width: 10em;
+      height: 3em;
+      margin-top: 8px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .content {
+        width: 100%;
+      }
+
+      table {
+        font-size: 14px; 
+      }
+
+      header img {
+        width: 75px;
+        height: 75px;
+      }
+    }
+  </style>
+  <title>Bimbingan Online</title>
+</head>
+<body>
+
+  <header>
+    <img src="polsri.png" alt="Logo">
+    <h1>Bimbingan Online</h1>
+    <img src="mi.png" alt="Logo"> 
+  </header>
+
+  <div class="content">
+    <table>
+      <tr>
+        <th>No</th>
+        <th>Nama Mahasiswa</th>
+        <th>Judul Laporan</th>
+        <th>Nama Pembimbing</th>
+        <th>Jam Bimbingan</th>
+        <th>Tanggal</th>
+        <th>Hari</th>
+        <th>Status</th>
+      </tr>
+    </table>
+
+    <form>
+      <label for="namaMahasiswa">Nama Mahasiswa:</label>
+      <textarea id="namaMahasiswa" name="namaMahasiswa" rows="3" required></textarea>
+
+      <label for="judulLaporan">Judul Laporan:</label>
+      <input type="text" id="judulLaporan" name="judulLaporan" required>
+
+      <label for="namaPembimbing">Nama Pembimbing:</label>
+      <input type="text" id="namaPembimbing" name="namaPembimbing" required>
+
+      <label for="jamBimbingan">Jam Bimbingan:</label>
+      <input type="time" id="jamBimbingan" name="jamBimbingan" required>
+
+      <label for="tanggal">Tanggal:</label>
+      <input type="date" id="tanggal" name="tanggal" required>
+
+      <label for="hari">Hari:</label>
+      <select id="hari" name="hari" required>
+        <option value="" disabled selected>Pilih Hari</option>
+        <option value="Senin">Senin</option>
+        <option value="Selasa">Selasa</option>
+        <option value="Rabu">Rabu</option>
+        <option value="Kamis">Kamis</option>
+        <option value="Jumat">Jumat</option>
+        <option value="Sabtu">Sabtu</option>
+      </select>
+
+      <label for="status">Status:</label>
+      <select id="status" name="status" required>
+        <option value="green">Selesai Bimbingan</option>
+        <option value="yellow">Revisi Diperlukan</option>
+        <option value="red">Belum Bimbingan</option>
+      </select>
+
+      <button type="button" onclick="tambahBimbingan()">Tambah Bimbingan</button>
+    </form>
+  </div>
+
+  <script>
+    function tambahBimbingan() {
+      var namaMahasiswa = document.getElementById('namaMahasiswa').value;
+      var judulLaporan = document.getElementById('judulLaporan').value;
+      var namaPembimbing = document.getElementById('namaPembimbing').value;
+      var jamBimbingan = document.getElementById('jamBimbingan').value;
+      var tanggal = document.getElementById('tanggal').value;
+      var hari = document.getElementById('hari').value;
+      var status = document.getElementById('status').value;
+
+      // Validasi form
+      if (!namaMahasiswa || !judulLaporan || !namaPembimbing || !jamBimbingan || !tanggal || !hari || !status) {
+        alert("Form tidak boleh kosong");
+      } else {
+
+        var namaMahasiswaArray = namaMahasiswa.split('\n');
+      
+        var table = document.querySelector('table');
+        var newRow = table.insertRow(-1);
+        var cellNo = newRow.insertCell(0);
+        var cellNamaMahasiswa = newRow.insertCell(1);
+        var cellJudulLaporan = newRow.insertCell(2);
+        var cellNamaPembimbing = newRow.insertCell(3);
+        var cellJamBimbingan = newRow.insertCell(4);
+        var cellTanggal = newRow.insertCell(5);
+        var cellHari = newRow.insertCell(6);
+        var cellStatus = newRow.insertCell(7);
+
+        cellNo.innerHTML = table.rows.length - 1;
+
+        cellNamaMahasiswa.innerHTML = namaMahasiswaArray.join('<br>');
+        cellJudulLaporan.innerHTML = judulLaporan;
+        cellNamaPembimbing.innerHTML = namaPembimbing;
+        cellJamBimbingan.innerHTML = jamBimbingan;
+        cellTanggal.innerHTML = tanggal;
+        cellHari.innerHTML = hari;
+        cellStatus.innerHTML = getStatusHTML(status);
+
+        // Reset formulir
+        resetForm();
+
+        // Tampilkan alert data telah dimasukkan
+        alert("Data telah dimasukkan");
+      }
+    }
+
+    function getStatusHTML(status) {
+      var statusClass = status === 'green' ? 'green' : (status === 'yellow' ? 'yellow' : 'red');
+      return `<div class="status-indicator ${statusClass}"></div> ${getStatusText(status)}`;
+    }
+
+    function getStatusText(status) {
+      return status === 'green' ? 'Selesai Bimbingan' : (status === 'yellow' ? 'Revisi Diperlukan' : 'Belum Bimbingan');
+    }
+
+    function resetForm() {
+      // Reset nilai input
+      document.getElementById('namaMahasiswa').value = '';
+      document.getElementById('judulLaporan').value = '';
+      document.getElementById('namaPembimbing').value = '';
+      document.getElementById('jamBimbingan').value = '';
+      document.getElementById('tanggal').value = '';
+      document.getElementById('hari').value = '';
+      document.getElementById('status').value = 'green';
+
+      // Fokus kembali ke input pertama
+      document.getElementById('namaMahasiswa').focus();
+    }
+  </script>
+</body>
+</html>
